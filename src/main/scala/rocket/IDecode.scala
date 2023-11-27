@@ -741,13 +741,13 @@ class VDecode(aluFn: ALUFN = ALUFN())(implicit val p: Parameters) extends Decode
 {
   val table: Array[(BitPat, List[BitPat])] = Array(
     // VSETVL   -> List(Y,N,N,N,N,N,N,N,N,N,N,N, A2_IMM, A1_RS1,   IMM_I, DW_XPR,  aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y)
-    VSETVLI  -> List(Y,N,N,N,N,N,N,Y,N,N,N,N,A2_IMM,A1_RS1,  IMM_I, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,Y,CSR.N,N,N,N,N,Y),
-    // VSETVLI  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X, p  A1_X,   IMM_X, DW_X,  aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y)
+    VSETVLI     -> List(Y,N,N,N,N,N,N,Y,N,N,N,N,A2_IMM,A1_RS1,  IMM_I, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,Y,CSR.N,N,N,N,N,Y),
     // VSETIVLI -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,   A1_X,   IMM_X, DW_X,  aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y)
-    VLE64_V  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
-    VSE64_V  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
-    VADD_VV  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
-    // VMUL_VV  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,   A1_X,   IMM_X, DW_X,  aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y)
-    // VDIV_VV  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,A2_X,A1_X, IMM_X, DW_X,aluFn.FN_X,   N,M_X,N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
+    VLE64_V     -> List(Y,N,N,N,N,N,N,Y,N,N,N,N,  A2_X,A1_RS1,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
+    VSE64_V     -> List(Y,N,N,N,N,N,N,Y,N,N,N,N,  A2_X,A1_RS1,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
+    VADD_VV     -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
+    VREDSUM_VS  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
+    VMUL_VV     -> List(Y,N,N,N,N,N,N,N,N,N,N,N,  A2_X,  A1_X,  IMM_X, DW_XPR, aluFn.FN_X,   N,M_X,        N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y)
+    // VDIV_VV  -> List(Y,N,N,N,N,N,N,N,N,N,N,N,A2_X,A1_X, IMM_X, DW_XPR,aluFn.FN_X,   N,M_X,N,N,N,N,N,N,N,CSR.N,N,N,N,N,Y),
   ) 
 }

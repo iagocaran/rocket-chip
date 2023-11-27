@@ -781,13 +781,17 @@ class Rocket(tile: RocketTile)(implicit p: Parameters) extends CoreModule()(p)
 
   // hook up control/status regfile
 
+  io.vpu.status := csr.io.status
   io.vpu.csr.vconfig := csr.io.vector.get.vconfig
   io.vpu.csr.vstart := csr.io.vector.get.vstart
   io.vpu.csr.vxrm := csr.io.vector.get.vxrm
   io.vpu.inst := id_inst(0)
   io.vpu.clock := clock
-  io.vpu.op1_data := ex_op1.asUInt
-  io.vpu.op2_data := ex_op2.asUInt
+  io.vpu.op1_data := ex_rs(0)
+  io.vpu.op2_data := ex_rs(1)
+  io.vpu.killd := ctrl_killd
+  io.vpu.killx := ctrl_killx
+  io.vpu.killm := killm_common
 
 
   csr.io.vector.get.set_vs_dirty := false.B
@@ -909,7 +913,7 @@ class Rocket(tile: RocketTile)(implicit p: Parameters) extends CoreModule()(p)
     csr.io.singleStep && (ex_reg_valid || mem_reg_valid || wb_reg_valid) ||
     id_csr_en && csr.io.decode(0).fp_csr && !io.fpu.fcsr_rdy ||
     id_ctrl.fp && id_stall_fpu ||
-    id_ctrl.vector && vpu_stall || // Stall while VPU is runnning
+    vpu_stall || // Stall while VPU is runnning
     id_ctrl.mem && dcache_blocked || // reduce activity during D$ misses
     id_ctrl.rocc && rocc_blocked || // reduce activity while RoCC is busy
     id_ctrl.div && (!(div.io.req.ready || (div.io.resp.valid && !wb_wxd)) || div.io.req.valid) || // reduce odds of replay
